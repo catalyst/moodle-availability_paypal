@@ -54,3 +54,5 @@ $string['pluginname'] = 'PayPal';
 $string['sendpaymentbutton'] = 'Send payment via PayPal';
 $string['title'] = 'PayPal payment';
 $string['transactionsreport'] = 'PayPal availability payments';
+$string['privacy:metadata:userid'] = 'The user id';
+$string['privacy:metadata:availability_paypal_tnx'] = 'Holds all known information about PayPal transactions';
