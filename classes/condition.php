@@ -35,6 +35,24 @@ defined('MOODLE_INTERNAL') || die();
  */
 class condition extends \core_availability\condition {
 
+    /** @var string|null PayPal business email */
+    public $businessemail = null;
+
+    /** @var string|null Currency code, e.g. 'USD' */
+    public $currency = null;
+
+    /** @var mixed Cost to charge (string/float depending on how it’s stored) */
+    public $cost = null;
+
+    /** @var string|null Item name/description */
+    public $itemname = null;
+
+    /** @var string|int|null Item number/SKU */
+    public $itemnumber = null;
+
+    /** @var int Timestamp used by restore logic (initialized to 0 to avoid arithmetic on null) */
+    public $time = 0;
+
     /**
      * Constructor.
      *
