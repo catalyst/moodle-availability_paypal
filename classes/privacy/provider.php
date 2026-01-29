@@ -42,26 +42,14 @@ class provider implements
      */
     public static function get_metadata(collection $collection): collection {
         $fields = [
-            'id' => 'privacy:metadata:availability_paypal_tnx:id',
-            'business' => 'privacy:metadata:availability_paypal_tnx:business',
-            'receiver_email' => 'privacy:metadata:availability_paypal_tnx:receiver_email',
-            'receiver_id' => 'privacy:metadata:availability_paypal_tnx:receiver_id',
             'item_name' => 'privacy:metadata:availability_paypal_tnx:item_name',
             'userid' => 'privacy:metadata:availability_paypal_tnx:userid',
             'contextid' => 'privacy:metadata:availability_paypal_tnx:contextid',
             'sectionid' => 'privacy:metadata:availability_paypal_tnx:sectionid',
             'memo' => 'privacy:metadata:availability_paypal_tnx:memo',
-            'tax' => 'privacy:metadata:availability_paypal_tnx:tax',
-            'option_name1' => 'privacy:metadata:availability_paypal_tnx:option_name1',
-            'option_selection1_x' => 'privacy:metadata:availability_paypal_tnx:option_selection1_x',
-            'option_name2' => 'privacy:metadata:availability_paypal_tnx:option_name2',
-            'option_selection2_x' => 'privacy:metadata:availability_paypal_tnx:option_selection2_x',
             'payment_status' => 'privacy:metadata:availability_paypal_tnx:payment_status',
             'pending_reason' => 'privacy:metadata:availability_paypal_tnx:pending_reason',
-            'reason_code' => 'privacy:metadata:availability_paypal_tnx:reason_code',
             'txn_id' => 'privacy:metadata:availability_paypal_tnx:txn_id',
-            'parent_txn_id' => 'privacy:metadata:availability_paypal_tnx:parent_txn_id',
-            'payment_type' => 'privacy:metadata:availability_paypal_tnx:payment_type',
             'timeupdated' => 'privacy:metadata:availability_paypal_tnx:timeupdated',
         ];
 
@@ -80,9 +68,9 @@ class provider implements
         $contextlist = new contextlist();
         $contextlist->add_from_sql(
             "SELECT DISTINCT ctx.id
-                  FROM {context} ctx
-                  JOIN {availability_paypal_tnx} t ON t.contextid = ctx.id
-                 WHERE t.userid = :userid",
+               FROM {context} ctx
+               JOIN {availability_paypal_tnx} t ON t.contextid = ctx.id
+              WHERE t.userid = :userid",
             ['userid' => $userid]
         );
 
@@ -132,24 +120,14 @@ class provider implements
             $transactions = [];
             foreach ($records as $r) {
                 $transactions[] = (object) [
-                    'id' => (int)$r->id,
-                    'business' => $r->business,
-                    'receiver_email' => $r->receiver_email,
-                    'receiver_id' => $r->receiver_id,
                     'item_name' => $r->item_name,
+                    'userid' => (int)$r->userid,
+                    'contextid' => (int)$r->contextid,
                     'sectionid' => (int)$r->sectionid,
                     'memo' => $r->memo,
-                    'tax' => $r->tax,
-                    'option_name1' => $r->option_name1,
-                    'option_selection1_x' => $r->option_selection1_x,
-                    'option_name2' => $r->option_name2,
-                    'option_selection2_x' => $r->option_selection2_x,
                     'payment_status' => $r->payment_status,
                     'pending_reason' => $r->pending_reason,
-                    'reason_code' => $r->reason_code,
                     'txn_id' => $r->txn_id,
-                    'parent_txn_id' => $r->parent_txn_id,
-                    'payment_type' => $r->payment_type,
                     'timeupdated' => (int)$r->timeupdated,
                 ];
             }
