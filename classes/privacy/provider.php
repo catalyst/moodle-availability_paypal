@@ -143,7 +143,6 @@ class provider implements
 
     /**
      * Delete all user data for all users in the given context.
-     * If the context is a user context, delete data for that user.
      *
      * @param \context $context
      * @return void
@@ -151,10 +150,8 @@ class provider implements
     public static function delete_data_for_all_users_in_context(\context $context): void {
         global $DB;
 
-        if ($context->contextlevel == CONTEXT_USER) {
-            $userid = $context->instanceid;
-            $DB->delete_records('availability_paypal_tnx', ['userid' => $userid]);
-        }
+        // Remove all transactions stored for this context (all users).
+        $DB->delete_records('availability_paypal_tnx', ['contextid' => $context->id]);
     }
 
     /**
